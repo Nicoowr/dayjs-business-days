@@ -21,7 +21,7 @@ export default (option = {}, dayjsClass) => {
     let daysRemaining = Math.abs(number);
 
     while (daysRemaining > 0) {
-      currentDay = currentDay.add(numericDirection, 'd');
+      currentDay = currentDay.add(numericDirection, "d");
 
       if (currentDay.isBusinessDay()) daysRemaining -= 1;
     }
@@ -52,7 +52,7 @@ export default (option = {}, dayjsClass) => {
     while (start < end) {
       if (start.isBusinessDay()) daysBetween += 1;
 
-      start = start.add(1, 'd');
+      start = start.add(1, "d");
     }
 
     return isPositiveDiff ? daysBetween : -daysBetween;
@@ -64,7 +64,7 @@ export default (option = {}, dayjsClass) => {
 
     let loopIndex = 1;
     while (loopIndex < searchLimit) {
-      currentDay = currentDay.add(1, 'day');
+      currentDay = currentDay.add(1, "day");
 
       if (currentDay.isBusinessDay()) break;
       loopIndex += 1;
@@ -79,7 +79,7 @@ export default (option = {}, dayjsClass) => {
 
     let loopIndex = 1;
     while (loopIndex < searchLimit) {
-      currentDay = currentDay.subtract(1, 'day');
+      currentDay = currentDay.subtract(1, "day");
 
       if (currentDay.isBusinessDay()) break;
       loopIndex += 1;
@@ -91,15 +91,15 @@ export default (option = {}, dayjsClass) => {
   dayjsClass.prototype.businessDaysInMonth = function () {
     if (!this.isValid()) return [];
 
-    let currentDay = this.clone().startOf('month');
-    const monthEnd = this.clone().endOf('month');
+    let currentDay = this.clone().startOf("month");
+    const monthEnd = this.clone().endOf("month");
     const businessDays = [];
     let monthComplete = false;
 
     while (!monthComplete) {
       if (currentDay.isBusinessDay()) businessDays.push(currentDay.clone());
 
-      currentDay = currentDay.add(1, 'day');
+      currentDay = currentDay.add(1, "day");
 
       if (currentDay.isAfter(monthEnd)) monthComplete = true;
     }
@@ -110,8 +110,8 @@ export default (option = {}, dayjsClass) => {
   dayjsClass.prototype.businessWeeksInMonth = function () {
     if (!this.isValid()) return [];
 
-    let currentDay = this.clone().startOf('month');
-    const monthEnd = this.clone().endOf('month');
+    let currentDay = this.clone().startOf("month");
+    const monthEnd = this.clone().endOf("month");
     const businessWeeks = [];
     let businessDays = [];
     let monthComplete = false;
@@ -119,12 +119,12 @@ export default (option = {}, dayjsClass) => {
     while (!monthComplete) {
       if (currentDay.isBusinessDay()) businessDays.push(currentDay.clone());
 
-      if (currentDay.day() === 5 || currentDay.isSame(monthEnd, 'day')) {
+      if (currentDay.day() === 5 || currentDay.isSame(monthEnd, "day")) {
         businessWeeks.push(businessDays);
         businessDays = [];
       }
 
-      currentDay = currentDay.add(1, 'day');
+      currentDay = currentDay.add(1, "day");
 
       if (currentDay.isAfter(monthEnd)) monthComplete = true;
     }
